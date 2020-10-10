@@ -11,7 +11,13 @@ namespace CASForMvc.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View(User.Identity.IsAuthenticated);
+
+            var model = new UserModel();
+            model.UserName = User.Identity.Name;
+            model.AuthenticationType = User.Identity.AuthenticationType;
+            model.IsAuthenticated = User.Identity.IsAuthenticated;
+
+            return View(model);
         }
 
         public ActionResult About()
@@ -27,5 +33,14 @@ namespace CASForMvc.Controllers
 
             return View();
         }
+    }
+
+    public class UserModel
+    {
+        public string UserName { get; set; }
+
+        public string AuthenticationType { get; set; }
+
+        public bool IsAuthenticated { get; set; }
     }
 }
